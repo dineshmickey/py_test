@@ -9,6 +9,7 @@ class ExcelSearchApp:
     def __init__(self, root):
         self.root = root
         self.root.title("TEST SCRIPT ASSIST")
+        self.selected_item = None
 
         # Get screen width and height
         screen_width = self.root.winfo_screenwidth()
@@ -232,10 +233,10 @@ class ExcelSearchApp:
         # Get selected item
         item = self.tree1.selection()[0]
         selected_data = self.tree1.item(item, "values")
-
         # Find the corresponding "Scenarios", "Preconditions", and "TestCases" values for the selected "Use Case ID"
         use_case_id = selected_data[1]
         use_case_data = next((item for item in self.use_case_data if item["Use Case ID"] == use_case_id), None)
+        self.selected_item = use_case_data
 
         if use_case_data:
             self.show_details(use_case_data)
@@ -348,38 +349,44 @@ class ExcelSearchApp:
             return
 
         try:
-            for use_case_data in self.use_case_data:
-                use_case_id = use_case_data["Use Case ID"]
-                scenario = use_case_data["Scenarios"]
-                preconditions = use_case_data["Preconditions"]
-                test_cases = use_case_data["TestCases"]
-                final_output = ""
-                
-                formatted_scenario = f"// {use_case_id}\n// {scenario}\n"
-                formatted_preconditions = self.process_conditions(preconditions)
-                formatted_test_cases = self.process_conditions(test_cases)
-        
-                
-                normalized_input = ';'.join(formatted_preconditions.split("\n"))
+            use_case_id = self.selected_item["Use Case ID"]
+            scenario = self.selected_item["Scenarios"]
+            preconditions = self.selected_item["Preconditions"]
+            test_cases = self.selected_item["TestCases"]
+            final_output = ""
+            
+            formatted_scenario = f"// {use_case_id}\n// {scenario}\n"
+            formatted_preconditions = self.process_conditions(preconditions)
+            formatted_test_cases = self.process_conditions(test_cases)
+    
+            
+            normalized_input = ';'.join(formatted_preconditions.split("\n"))
+            normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
 
-                for function_name, content_lines in self.text_files_data.items():
-                    content_str = ';'.join(content_lines)
-                    if content_str in normalized_input:
-                        normalized_input = re.sub(re.escape(content_str), function_name, normalized_input)
+            print("inside 1st loop")
+            for function_name, content_lines in self.text_files_data.items():
+                content_str = ';'.join(content_lines)
+                print(function_name,"Function Name",content_lines,"Content Str")
+                if content_str=="":
+                    print("Skipping",function_name)
+                    continue
+                if content_str in normalized_input:
+                    print(content_str)
+                    normalized_input = re.sub(re.escape(content_str), function_name, normalized_input)
+                if content_str in normalized_test_case_input:
+                    print(content_str)
+                    normalized_test_case_input = re.sub(re.escape(content_str), function_name, normalized_test_case_input)
+                    # print("Inside if")
+                    # normalized_input = '\n'.join(normalized_input.split(";"))
+            print("After for loop")     
+                        
+            normalized_input = '\n'.join(normalized_input.split(";"))
+            normalized_test_case_input = '\n'.join(normalized_test_case_input.split(";"))
 
-                normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
-                for function_name, content_lines in self.text_files_data.items():
-                    content_str = ';'.join(content_lines)
-                    if content_str in normalized_test_case_input:
-                        normalized_test_case_input = re.sub(re.escape(content_str), function_name, normalized_test_case_input)
-                
-                normalized_input = '\n'.join(normalized_input.split(";"))
-                normalized_test_case_input = '\n'.join(normalized_test_case_input.split(";"))
 
-
-                
-                final_output = "".join([formatted_scenario, normalized_input ,normalized_test_case_input,])
-                
+            
+            final_output = "".join([formatted_scenario, normalized_input ,normalized_test_case_input,])
+            
 
             save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
             if save_path:
