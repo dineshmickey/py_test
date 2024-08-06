@@ -361,20 +361,18 @@ class ExcelSearchApp:
         
                 
                 normalized_input = ';'.join(formatted_preconditions.split("\n"))
-                normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
 
-                print("inside 1st loop")
                 for function_name, content_lines in self.text_files_data.items():
-                    print(function_name)
                     content_str = ';'.join(content_lines)
                     if content_str in normalized_input:
-                        print(content_str)
                         normalized_input = re.sub(re.escape(content_str), function_name, normalized_input)
+
+                normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
+                for function_name, content_lines in self.text_files_data.items():
+                    content_str = ';'.join(content_lines)
                     if content_str in normalized_test_case_input:
-                        print(content_str)
                         normalized_test_case_input = re.sub(re.escape(content_str), function_name, normalized_test_case_input)
-                print("After for loop")     
-                           
+                
                 normalized_input = '\n'.join(normalized_input.split(";"))
                 normalized_test_case_input = '\n'.join(normalized_test_case_input.split(";"))
 
