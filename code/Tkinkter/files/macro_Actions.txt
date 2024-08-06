@@ -1,0 +1,630 @@
+//1. Opening and Closing of doors
+
+$Action_CloseAllDoors (){
+//Updated 
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 1
+delay 20 ms
+DRIVER_DOOR_SW = 1
+delay 20 ms
+REAR_LEFT_DOOR_SW = 1 //INCIDENT
+delay 20 ms
+REAR_RIGHT_DOOR_SW = 1
+delay 20 ms
+TAILGATE_SW = 1
+delay 20 ms
+I_GLASSHATCH_STAT_SW = 1
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 0
+delay 20 ms
+DRIVER_DOOR_SW = 0
+delay 20 ms
+REAR_LEFT_DOOR_SW = 0
+delay 20 ms
+REAR_RIGHT_DOOR_SW = 0
+delay 20 ms
+TAILGATE_SW = 0
+delay 20 ms
+I_GLASSHATCH_STAT_SW = 0
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Action_OpenDriverDoor (){
+delay PAUSE_TIME_TP *10 ms
+DRIVER_DOOR_SW = 0
+delay PAUSE_TIME_TP *10 ms
+DRIVER_DOOR_SW = 1
+}
+
+$Action_CloseDriverDoor (){
+delay PAUSE_TIME_TP *10 ms
+DRIVER_DOOR_SW = 1
+delay PAUSE_TIME_TP *10 ms
+DRIVER_DOOR_SW = 0
+}
+
+
+$Action_OpenAssistDoor (){
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 0
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 1
+}
+
+$Action_CloseAssistDoor (){
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 1
+delay PAUSE_TIME_TP *10 ms
+ASSIST_DOOR_SW = 0
+}
+
+
+$Action_OpenRearLeftDoor (){
+delay PAUSE_TIME_TP *10 ms
+REAR_LEFT_DOOR_SW = 0
+delay PAUSE_TIME_TP *10 ms
+REAR_LEFT_DOOR_SW = 1
+}
+
+$Action_CloseRearLeftDoor (){
+delay PAUSE_TIME_TP *10 ms
+REAR_LEFT_DOOR_SW = 1
+delay PAUSE_TIME_TP *10 ms
+REAR_LEFT_DOOR_SW = 0
+}
+
+
+$Action_OpenRearRightDoor (){
+delay PAUSE_TIME_TP *10 ms
+REAR_RIGHT_DOOR_SW = 0
+delay PAUSE_TIME_TP *10 ms
+REAR_RIGHT_DOOR_SW = 1
+}
+
+$Action_CloseRearRightDoor (){
+delay PAUSE_TIME_TP *10 ms
+REAR_RIGHT_DOOR_SW = 1
+delay PAUSE_TIME_TP *10 ms
+REAR_RIGHT_DOOR_SW = 0
+}
+
+
+$Action_OpenTailgate (){
+delay PAUSE_TIME_TP *10 ms
+TAILGATE_SW = 0
+delay PAUSE_TIME_TP *10 ms
+TAILGATE_SW = 1
+}
+
+$Action_OpenGlasshatch (){
+delay PAUSE_TIME_TP *10 ms
+I_GLASSHATCH_STAT_SW = 0
+delay PAUSE_TIME_TP *10 ms
+I_GLASSHATCH_STAT_SW = 1
+}
+
+$Action_CloseTailgate (){
+delay PAUSE_TIME_TP *10 ms
+TAILGATE_SW = 1
+delay PAUSE_TIME_TP *10 ms
+TAILGATE_SW = 0
+}
+
+$Action_CloseGlasshatch (){
+delay PAUSE_TIME_TP *10 ms
+I_GLASSHATCH_STAT_SW = 1
+delay PAUSE_TIME_TP *10 ms
+I_GLASSHATCH_STAT_SW = 0
+}
+
+//2. Locking and Unlocking of Doors
+
+
+$Action_Lock_RKE (){
+EV_RKE_LOCK_SHORT_PRESS =  EV_RKE_LOCK_SHORT_PRESS + 1
+delay sample_time ms
+//EV_RKE_LOCK_SHORT_PRESS = 0
+}
+
+$Action_Unlock_RKE (){
+EV_RKE_UNLOCK_SHORT_PRESS = EV_RKE_UNLOCK_SHORT_PRESS + 1
+delay sample_time ms 
+//EV_RKE_UNLOCK_SHORT_PRESS = 0
+}
+
+
+
+$Action_Lock_Backdoor_RKE (){
+EV_RKE_TRUNK_SHORT_PRESS = EV_RKE_TRUNK_SHORT_PRESS + 1
+delay sample_time ms 
+//EV_RKE_TRUNK_SHORT_PRESS = 0
+}
+
+$Action_Unlock_Backdoor_RKE (){
+EV_RKE_TRUNK_SHORT_PRESS =  EV_RKE_TRUNK_SHORT_PRESS + 1
+delay sample_time ms 
+//EV_RKE_TRUNK_SHORT_PRESS = 0
+}
+
+$Action_Unlock_Backdoor_RKE_Long (){
+EV_RKE_TRUNK_LONG_PRESS =  EV_RKE_TRUNK_LONG_PRESS + 1 
+delay sample_time ms 
+//EV_RKE_TRUNK_LONG_PRESS = 0
+}
+
+
+$Action_Lock_HandsFree (){
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 1
+delay sample_time ms 
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 0
+}
+
+$Action_Unlock_HandsFree (){
+R_KEYLESS_UNLOCK_BY_BUTTON_BTN = 1
+delay sample_time ms
+R_KEYLESS_UNLOCK_BY_BUTTON_BTN = 0
+}
+
+$Action_Unlock_APRUN (){        
+R_KEYLESS_UNLOCK_BY_APRUN =1
+delay sample_time ms     
+R_KEYLESS_UNLOCK_BY_APRUN =0    
+}
+
+$Action_Unlock_CABIN (){        
+EV_RKE_UNLOCK_CABIN =1
+delay sample_time ms      
+EV_RKE_UNLOCK_CABIN =0   
+}
+
+$Action_Unlock_CARGO (){        
+EV_RKE_UNLOCK_CARGO =1
+delay sample_time ms     
+EV_RKE_UNLOCK_CARGO =0   
+}
+
+$Action_Lock_NFC (){
+"This input not used in test case"
+//NFC_LOCK = 1   
+}
+
+$Action_Unlock_NFC (){
+"This input not used in test case"
+//NFC_UNLOCK = 1
+}
+
+$Action_Lock_RLU (){
+EV_REMOTE_RLU_LOCK = 1
+delay sample_time ms
+EV_REMOTE_RLU_LOCK = 0
+}
+
+$Action_Unlock_RLU (){
+EV_REMOTE_RLU_UNLOCK = 1
+delay sample_time ms
+EV_REMOTE_RLU_UNLOCK = 0
+}
+
+$Action_KLLock_RLU (){
+R_LOCK_BY_RLU = 1
+delay sample_time ms
+R_LOCK_BY_RLU = 0
+//delay period ms
+}
+
+$Action_KLUnlock_RLU (){
+R_UNLOCK_BY_RLU = 1
+delay sample_time ms
+R_UNLOCK_BY_RLU = 0
+//delay period ms
+}
+
+
+$Action_Lock_WAC (){
+R_KEYLESS_LOCK_BY_WAC = 1
+delay sample_time ms 
+R_KEYLESS_LOCK_BY_WAC = 0
+}
+
+$Action_Lock_CDL (){
+delay period ms
+R_CDL_SW_BY_DRIVER = 0
+delay period ms
+R_CDL_SW_BY_DRIVER = 1
+delay period ms
+R_CDL_SW_BY_DRIVER = 0
+}
+
+
+$Action_Lock_Backup (){
+R_CDL_SW_BY_DRIVER = 0
+delay period ms
+R_CDL_SW_BY_DRIVER = 1
+delay ( CDL_BACKUP_LOCK_TM_CF *  10  )  ms
+}
+
+
+
+$Action_Unlock_CDL_Selector (){ //SELECTOR_CDL_CF =1
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 1
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 0
+}
+
+//Added in SWEET400 SW3B_SP2
+$Action_lockUnlock_CCDL_Button (){ //SELECTOR_CDL_CF =0
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 1 
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 0
+}
+//End SWEET400 SW3B_SP2
+
+
+$Action_Unlock_CDL_Impulse (){//SELECTOR_CDL_CF =0
+delay period ms
+R_CDL_SW_BY_DRIVER = 0
+delay period ms
+R_CDL_SW_BY_DRIVER = 1
+delay period ms
+R_CDL_SW_BY_DRIVER = 0
+}
+
+
+
+
+
+$Action_Superlock_RKE (){
+EV_RKE_LOCK_SHORT_PRESS = EV_RKE_LOCK_SHORT_PRESS + 1
+delay sample_time ms
+//EV_RKE_LOCK_SHORT_PRESS = 0 
+delay ( SUPERLOCK_TM_TP *  10  ) /2 ms
+EV_RKE_LOCK_SHORT_PRESS = EV_RKE_LOCK_SHORT_PRESS + 1
+delay sample_time ms
+//EV_RKE_LOCK_SHORT_PRESS = 0 
+//delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms //To let lock motor action pass
+//delay  PAUSE_TIME_TP * 10 - period ms  
+}
+
+
+
+
+$Action_Superlock_HandsFree (){
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 1
+delay sample_time ms 
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 0
+delay ( SUPERLOCK_TM_TP  ) /2 ms
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 1
+delay sample_time ms 
+R_KEYLESS_LOCK_BY_BUTTON_BTN = 0
+delay sample_time ms 
+}
+
+
+
+
+$Action_Childlock_On (){
+delay period ms
+R_ELEC_CHILD_LOCK_SW_BY_DRIVER = 0
+delay period ms
+R_ELEC_CHILD_LOCK_SW_BY_DRIVER = 1
+}
+
+$Action_Childlock_Off (){
+delay period ms
+R_ELEC_CHILD_LOCK_SW_BY_DRIVER = 1
+delay period ms
+R_ELEC_CHILD_LOCK_SW_BY_DRIVER = 0
+}
+
+
+
+$Action_AT_GearInParkingPosition (){
+GEAR_LEVER_POSITION = GLP_PARKING
+delay period ms
+}
+
+$Action_AT_GearNotinParkingPosition (){
+GEAR_LEVER_POSITION =  GLP_MANUAL_MODE
+delay period ms
+}
+
+
+
+$Set_VS_1Sleep () {
+delay period ms
+VEHICLE_STATE = VS_SLEEPING
+delay period ms
+}
+
+
+$Set_VS_2Acc () {
+delay period ms
+VEHICLE_STATE = VS_AUTOACC_LEVEL
+delay period ms
+}
+
+$Set_VS_3Mission () {
+delay period ms
+VEHICLE_STATE = VS_IGNITION_LEVEL
+delay period ms
+}
+
+$Set_VS_4Driving () {
+delay period ms
+VEHICLE_STATE = VS_ENGINE_RUNNING
+delay period ms
+}
+
+$Key_Authenticated () {
+delay period ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 0
+INSIDE_CAR_AUTHENTICATED = 0
+delay period ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 1
+delay sample_time ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 0
+delay period ms
+INSIDE_CAR_AUTHENTICATED = 1
+delay sample_time ms 
+INSIDE_CAR_AUTHENTICATED = 0
+delay period ms
+}
+
+$Key_Not_Authenticated () {
+delay period ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 1
+delay sample_time ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 0
+INSIDE_CAR_AUTHENTICATED = 1
+delay sample_time ms 
+INSIDE_CAR_AUTHENTICATED = 0
+delay period ms
+CARD_IN_TRANSPOND_AUTHENTICATED = 0
+delay period ms
+INSIDE_CAR_AUTHENTICATED = 0
+delay period ms
+}
+
+$Vehicle_Shutdowncycle ( INT x  ) {
+for (1 , 1 , x , 1 ){
+delay period ms
+VEHICLE_STATE = VS_ENGINE_RUNNING
+delay period ms
+VEHICLE_STATE = VS_SLEEPING // MARK : is this sleep transient? Change VehicleState from Wakeup to SleepTransient
+delay period ms
+}
+} 
+
+
+$Set_RES_NormalEngineStart (){
+RES_STATUS_S = RES_NORMAL_ENGINE_START
+delay period ms
+}
+
+$Set_RES_RemoteEngineStart (){
+RES_STATUS_S = RES_REMOTE_ENGINE_START
+delay period ms
+}
+
+$Set_MPU_SDOActivation (){
+SINGLE_DOOR_OPENING_ACTIVATION_REQUEST = SDO_ACTIVATION_REQUEST
+delay period ms
+}
+
+$Set_MPU_SDODeactivation (){
+SINGLE_DOOR_OPENING_ACTIVATION_REQUEST = SDO_DEACTIVATION_REQUEST
+delay period ms
+}
+ 
+$Set_MPU_SDOReset (){
+SINGLE_DOOR_OPENING_ACTIVATION_REQUEST = SDO_RESET
+delay period ms
+}
+
+$Action_Activate_SDO (){
+EV_RKE_LOCK_UNLOCK_VERYLG_PRESS =  EV_RKE_LOCK_UNLOCK_VERYLG_PRESS + 1
+delay sample_time ms
+//EV_RKE_LOCK_UNLOCK_VERYLG_PRESS = 0
+//delay period ms
+}
+
+$Action_Deactivate_SDO (){
+EV_RKE_LOCK_UNLOCK_VERYLG_PRESS =  EV_RKE_LOCK_UNLOCK_VERYLG_PRESS + 1
+delay sample_time ms
+//EV_RKE_LOCK_UNLOCK_VERYLG_PRESS = 0
+//delay period ms 
+}
+
+
+
+$Set_iKeyFobsPresent_ForAutoRelock_TimerStart (int num){
+if (num = 0) { 
+NUMBER_IKEY_FOB_INSIDE = NO_IKEY_FOB_INSIDE   
+}
+if (num = 1) { 
+NUMBER_IKEY_FOB_INSIDE = ONE_IKEY_FOB_INSIDE   
+}
+if (num = 2) { 
+NUMBER_IKEY_FOB_INSIDE = TWO_IKEY_FOB_INSIDE   
+}
+if (num = 3) { 
+NUMBER_IKEY_FOB_INSIDE = THREE_IKEY_FOB_INSIDE   
+}
+if (num = 4) { 
+NUMBER_IKEY_FOB_INSIDE = FOUR_IKEY_FOB_INSIDE   
+}
+delay period ms
+}
+
+$Set_iKeyFobsPresent_ForAutoRelock_TimerExpire (int num){
+if (num = 0) { 
+NUMBER_IKEY_FOB_INSIDE = NO_IKEY_FOB_INSIDE   
+}
+if (num = 1) { 
+NUMBER_IKEY_FOB_INSIDE = ONE_IKEY_FOB_INSIDE   
+}
+if (num = 2) { 
+NUMBER_IKEY_FOB_INSIDE = TWO_IKEY_FOB_INSIDE   
+}
+if (num = 3) { 
+NUMBER_IKEY_FOB_INSIDE = THREE_IKEY_FOB_INSIDE   
+}
+if (num = 4) { 
+NUMBER_IKEY_FOB_INSIDE = FOUR_IKEY_FOB_INSIDE   
+}
+delay period ms
+}
+
+$Set_MPU_AutoRelockActivation (){
+AUTORELOCK_BY_TIMEOUT_ACT_REQ2 = AUTORELOCK_ACTIVATION_REQUEST
+delay period ms
+}
+
+$Set_MPU_AutoRelockDeactivation (){ 
+AUTORELOCK_BY_TIMEOUT_ACT_REQ2 = AUTORELOCK_DEACTIVATION_REQUEST
+delay period ms
+}
+
+$Set_MPU_AutoRelockReset (){
+AUTORELOCK_BY_TIMEOUT_ACT_REQ2 = AUTORELOCK_RESET
+delay period ms
+}
+
+
+$Set_UserId_At_FrontLeft (){
+BCM_USER_IDENT_HANDFREE = UI_FRONT_LEFT
+delay period ms
+}
+
+$Set_UserId_At_FrontRight (){
+BCM_USER_IDENT_HANDFREE = UI_FRONT_RIGHT
+delay period ms
+}
+
+$Set_UserId_At_RearLeft (){
+BCM_USER_IDENT_HANDFREE = UI_REAR_LEFT
+delay period ms
+}
+
+$Set_UserId_At_RearRight (){
+BCM_USER_IDENT_HANDFREE =UI_REAR_RIGHT
+delay period ms
+}
+
+$Set_UserId_At_BackDoor (){
+BCM_USER_IDENT_HANDFREE = UI_BACKDOOR
+delay period ms
+} 
+
+$Set_UserId_At_NoSide (){
+BCM_USER_IDENT_HANDFREE = UI_HANDFREE_NONE
+delay period ms
+}
+
+//Mark -newly implemented
+$Set_MPU_AutoUnLock_Activation_IGN_OFF (){
+AUTO_UNLOCK_ACT_REQ =AUTO_UNLOCK_IGN_OFF
+}
+
+$Set_MPU_AutoUnLock_Activation_P_rangeIn (){
+AUTO_UNLOCK_ACT_REQ =AUTO_UNLOCK_PRANGE_IN
+}
+
+$Set_MPU_AutoUnLock_Deactivation (){
+AUTO_UNLOCK_ACT_REQ =AUTO_UNLOCK_DEACTIVATION
+}
+
+$Set_MPU_AutoUnLock_Reset (){
+AUTO_UNLOCK_ACT_REQ = AUTO_UNLOCK_RESET
+}
+
+$Action_Activation_And_Deactivation_Of_AutoUnlock_by_CDL_Button (){
+Set_VS_1Sleep ()
+delay period ms
+Set_VS_3Mission () //Ignition ON
+R_CDL_SW_UNLOCK_BY_DRIVER = 0
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 1
+delay (  AUTO_LOCK_LONG_PRESS_CDL_TM_CF  *  10  ) ms //Long press
+delay period ms
+R_CDL_SW_UNLOCK_BY_DRIVER = 0
+delay ( IGN_ON_TIMEOUT_FOR_AUTO_LOCK_CHANGE_TM_CF *  10  )  ms 
+}
+
+$Set_MPU_AutolockDeactivation (){ 
+AUTOLOCKUP_ACT_REQ =AUTOLOCKUP_DEACTIVATION_REQ
+delay period ms
+}
+
+$Set_MPU_AutolockLWS_Activation (){
+AUTOLOCKUP_ACT_REQ =AUTOLOCKUP_ALWS_ACTIVATION_REQ
+delay period ms
+}
+
+
+$Set_MPU_AT_GearNotinParkingPosition_Autolock_Req (){ 
+AUTOLOCKUP_ACT_REQ =AUTOLOCKUP_PRANGE_OUT_ACT_REQ
+delay period ms
+}
+
+
+$Set_MPU_Autolock_Reset (){
+AUTOLOCKUP_ACT_REQ = AUTOLOCKUP_RESET
+delay period ms
+}
+
+
+$Set_MPU_SilentMode_Deactivated (){
+SILENT_MODE_ACT_REQ = SILENT_DEACTIVATION_REQ
+delay period ms
+}
+
+$Set_MPU_SilentMode_Activated (){
+SILENT_MODE_ACT_REQ = SILENT_MODE_ACTIVATION_REQ
+delay period ms
+}
+
+$Set_MPU_SilentMode_Reset (){
+SILENT_MODE_ACT_REQ = SILENT_MODE_RESET
+delay period ms
+}
+
+$Set_iKeyFobsPresent_Unavailable (){
+NUMBER_IKEY_FOB_INSIDE = TYP_NUMBER_IKEY_FOB_INSIDE_UNAVAILABLE
+}
+
+$Set_SDO_Deactivation (){
+SINGLE_DOOR_OPENING_CF = 1
+delay period ms
+SDO_ACTIVATION_STATE_S = SDO_DEACTIVATED
+delay period ms
+check SDO_ACTIVATION_STATE_S_OUT = SDO_DEACTIVATED , "Error : SDO_ACTIVATION_STATE_S_OUT should be SDO_DEACTIVATED"
+delay period ms
+SINGLE_DOOR_OPENING_CF = 0
+delay period ms
+}
+
+//Added for sweet400
+$Action_PSD_LeftSW (){
+PSD_L_UNLOCK_REQUEST = 1
+delay period ms
+Set_UserId_At_RearLeft ()
+delay period ms
+R_KEYLESS_AUTHENT_BY_LEFT_SW = 1
+delay 10 ms
+R_KEYLESS_AUTHENT_BY_LEFT_SW = 0
+delay period ms
+}
+
+$Action_PSD_RightSW (){
+PSD_R_UNLOCK_REQUEST = 1
+delay period ms
+Set_UserId_At_RearRight ()
+//PSD_R_UNLOCK_REQUEST = 1
+R_KEYLESS_AUTHENT_BY_RIGHT_SW = 1
+delay 10 ms
+R_KEYLESS_AUTHENT_BY_RIGHT_SW = 0
+delay period ms
+}

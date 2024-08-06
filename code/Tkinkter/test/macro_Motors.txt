@@ -1,0 +1,1581 @@
+$Check_Motors_NoAction (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+CHECK O_LOCK_FRONT = 0, ERROR: O_LOCK_FRONT SHOULD BE 0
+CHECK O_UNLOCK_DRIVER = 0, ERROR: O_UNLOCK_DRIVER SHOULD BE 0
+CHECK O_UNLOCK_ASSISTANT = 0, ERROR: O_UNLOCK_ASSISTANT SHOULD BE 0
+CHECK O_LOCK_REAR = 0, ERROR: O_LOCK_REAR SHOULD BE 0
+CHECK O_UNLOCK_REAR = 0, ERROR: O_UNLOCK_REAR SHOULD BE 0
+CHECK O_SUPERLOCK_REAR = 0, ERROR: O_SUPERLOCK_REAR SHOULD BE 0
+CHECK O_UNLOCK_BACK_DOOR_LATCH = 0, ERROR: O_UNLOCK_BACK_DOOR_LATCH SHOULD BE 0
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+CHECK O_LOCK_FRONT = 0, ERROR: O_LOCK_FRONT SHOULD BE 0
+CHECK O_UNLOCK_DRIVER = 0, ERROR: O_UNLOCK_DRIVER SHOULD BE 0
+CHECK O_UNLOCK_ASSISTANT = 0, ERROR: O_UNLOCK_ASSISTANT SHOULD BE 0
+CHECK O_LOCK_REAR = 0, ERROR: O_LOCK_REAR SHOULD BE 0
+CHECK O_UNLOCK_REAR = 0, ERROR: O_UNLOCK_REAR SHOULD BE 0
+CHECK O_SUPERLOCK_REAR = 1, ERROR: O_SUPERLOCK_REAR SHOULD BE 1
+CHECK O_UNLOCK_BACK_DOOR_LATCH = 0, ERROR: O_UNLOCK_BACK_DOOR_LATCH SHOULD BE 0
+CHECK R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST, ERROR: R_FLASHERS_FEEDBACK_FOR_DOORLOCK SHOULD BE FLASHER_NO_REQUEST
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_LockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motor_Lock_All (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motor_LockAll (){
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+//check O_SUPERLOCK_REAR = 0," O_SUPERLOCK_REAR "
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+
+$Check_Motors_CrashUnlock (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay 20 ms  //10ms increased due to SIL
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay period /2 ms
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_CrashUnlock_New (){
+ //instead of 10 ms
+delay 20 ms  //10ms increased due to SIL
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//Check_Flasher_CrashUnlockAll ()
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+//delay period / 2 ms
+//delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay 20 ms
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 - 30 ms  
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//Check_Flasher_CrashUnlockAll ()
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+//delay period / 2 ms
+//delay 300 ms
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay 90 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//Check_Flasher_CrashUnlockAll ()
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay period / 2 ms
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+//COV_RQT_DOORLOCK_MOT_MNGMNT_SYS_BCM_30
+//COV_RQT_DOORLOCK_ACTION_FCT_30
+//COV_RQT_DOORLOCK_CRASH_UNLOCK_FCT_25
+//COV_RQT_DOORLOCK_CRASH_UNLOCK_FCT_100
+}
+
+$Check_Motors_CrashUnlock_Postponed (){
+delay 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"  //Unlock all
+
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//Check_Flasher_CrashUnlockAll ()
+//delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) - period ms
+delay period- 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay 30 ms
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 - 30 ms
+//Check_Flasher_CrashUnlockAll ()
+delay 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"  //Unlock All
+
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//Check_Flasher_CrashUnlockAll ()
+//delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay period - 60 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay 200 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//Check_Flasher_CrashUnlockAll () 
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+//COV_RQT_DOORLOCK_ACTION_FCT_30
+//COV_RQT_DOORLOCK_CRASH_UNLOCK_FCT_100
+}
+$Check_Motors_CrashUnlock_Postponed1 (){
+delay 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"  //Unlock all
+
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//Check_Flasher_CrashUnlockAll ()
+//delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) - period ms
+delay period  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay 30 ms
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 - 30 ms
+//Check_Flasher_CrashUnlockAll ()
+delay 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"  //Unlock All
+
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//Check_Flasher_CrashUnlockAll ()
+//delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay period - 60 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay 200 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//Check_Flasher_CrashUnlockAll () 
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  ) ms
+delay MASTER_RELAY_SYNCHRO_TM_TP  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+//COV_RQT_DOORLOCK_ACTION_FCT_30
+//COV_RQT_DOORLOCK_CRASH_UNLOCK_FCT_100
+}
+
+
+$Check_Motors_SDO_UnlockDriver (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_SDO_Unlock_Driver (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_SDO_UnlockDriverSideRear (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_SDO_Unlock_DriverSideRear (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_SDO_Unlock_DriverSideRear_PSD (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_SDO_UnlockAssistantSideRear (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms 
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_SDO_UnlockAssistantSideRear_PSD (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms 
+delay period /2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_SDO_Unlock_AssistantSideRear (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 60 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 40 ms
+//delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_SDO_UnlockAssistant (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_SDO_Unlock_Assistant (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 30  ms
+//delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_SDO_UnlockBackDoor (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+
+
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_SDO_UnlockBackDoorLatch (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_UnSuperlockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 - (period)/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 -20 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_Unlock_UnSuperlockAll_Lock_Rear (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 - (period)/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_UnSuperlock_All () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 - (period)/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+}
+
+
+$Check_Motors_UnSuperlockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 - (period)/2  -20 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+delay sample_time ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_SuperlockAll (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Super_lockAll (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Superlock_All () {
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+//delay 20 ms
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motor_SuperlockAll (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+//delay 20 ms
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay 120 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+
+$Check_Motors_SuperlockAll_RearLock (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_SuperlockAll_Rear_Lock () {
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_SUPERLOCK," FLASHER_SUPERLOCK "
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+check R_FLASHERS_FEEDBACK_FOR_DOORLOCK = FLASHER_NO_REQUEST , "Error : R_FLASHERS_FEEDBACK_FOR_DOORLOCK should be FLASHER_NO_REQUEST"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_ChildlockOn (){
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_ChildlockOff (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2  ms
+delay period /2  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10  ms
+}
+$Check_Motors_UnlockAll1 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 40 ms
+delay period /2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 -100  ms
+}
+
+
+$Check_Motorss_UnlockAll (){
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 - 30  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_All () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+
+}
+ 
+$CheckMotors_UnlockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 - 30  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+} 
+
+$Check_Motor_UnlockAll (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+} 
+$Check_Motor_UnlockAll_PSD (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 20  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+$Check_Motors_UnlockFrontCabinOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockFrontCabinOne1 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_FrontCabinOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockFrontCabin_One () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+}
+
+$Check_Motors_LockFrontCabinOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockFrontCabinTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_FrontCabinTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockFrontCabin_Two () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+}
+
+$Check_Motors_LockFrontCabinTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+//Unlock cargo with UNLOCK_INSIDE_AND_OUTSIDE_CF = 0
+$Check_Motors_UnlockRearCargoOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+//Unlock cargo with UNLOCK_INSIDE_AND_OUTSIDE_CF = 1
+$Check_Motors_UnlockRearCargoOne1 (){ 
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_RearCargoOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockRearCargo_One () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+}
+
+$Check_Motors_LockRearCargoOne (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_UnlockRearCargoTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+$Check_Motors_Unlock_RearCargoTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 50 ms
+delay period /2 - 30 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_UnlockRearCargo_Two () {
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+}
+
+
+$Check_Motors_LockRearCargoTwo (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+ 
+
+$Check_Motors_RTL (){ 
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+//COV_RQT_DOORLOCK_RELAYS_C1A_100
+//COV_RQT_DOORLOCK_MOT_SYNCHRO_SYS_BCM_10
+
+$Check_Motors_UnSuperlockAll_BackdoorLatchCF_One (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 - (period)/2  -20 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+delay sample_time ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+$Check_Motors_LockCargo(){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10)/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"  //INCIDENT - Corrected - Wrong Motor action For SuperUnlockAll
+
+check O_LOCK_REAR = 1 , "Error : O_LOCK_REAR should be 1"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+delay sample_time ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+
+//For coverage
+
+$Check_Motors_Driver_Unlock () {
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2  ms
+delay period /2  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10  ms
+}
+
+
+$Check_Motors_UnlockAll_ButSuperlock (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2  ms
+delay period /2  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10  ms
+}
+
+
+
+$Check_Motors_No_Action (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 - 40 ms
+delay period/2 - 20 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 - 100 ms
+}
+
+
+
+$Check_Motors_UnlockRearCargoOne_ButSuperlock (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 1 , "Error : O_LOCK_FRONT should be 1"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 0 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 0"
+delay PAUSE_TIME_TP *10 ms
+}
+
+//Unlock all motors with UNLOCK_INSIDE_AND_OUTSIDE_CF is 0
+$CheckMotors_UnlockAll_Insideandoutside_cf0 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 - 30  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+} 
+
+//Unlock all motors with UNLOCK_INSIDE_AND_OUTSIDE_CF is 1
+$CheckMotors_UnlockAll_Insideandoutside_cf1 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 - 30  ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 0 , "Error : O_UNLOCK_DRIVER should be 0"
+check O_UNLOCK_ASSISTANT = 0 , "Error : O_UNLOCK_ASSISTANT should be 0"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 0 , "Error : O_UNLOCK_REAR should be 0"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+delay PAUSE_TIME_TP *10 ms
+} 
+
+$CheckMotors_Unlockall_Insideandoutside_SL0 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 1 , "Error : O_SUPERLOCK_REAR should be 1"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+} 
+
+
+$CheckMotors_Unlockall_Insideandoutside_SL1 (){
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+check O_LOCK_FRONT = 0 , "Error : O_LOCK_FRONT should be 0"
+check O_UNLOCK_DRIVER  = 1 , "Error : O_UNLOCK_DRIVER should be 1"
+check O_UNLOCK_ASSISTANT = 1 , "Error : O_UNLOCK_ASSISTANT should be 1"
+check O_LOCK_REAR = 0 , "Error : O_LOCK_REAR should be 0"
+check O_UNLOCK_REAR = 1 , "Error : O_UNLOCK_REAR should be 1"
+check O_SUPERLOCK_REAR = 0 , "Error : O_SUPERLOCK_REAR should be 0"
+check O_UNLOCK_BACK_DOOR_LATCH = 1 , "Error : O_UNLOCK_BACK_DOOR_LATCH should be 1"
+//delay MASTER_RELAY_SYNCHRO_TM_TP ms
+delay ( DOORLOCK_ACTUATORS_TM_CF  *  10  )/2 ms
+delay period /2 ms
+} 

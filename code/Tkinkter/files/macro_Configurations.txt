@@ -1,0 +1,339 @@
+$Configure_SeparatedTrunk_Present (){
+TRUNK_SEPARATED_MNGT_CF = 1
+}
+
+$Configure_SeparatedTrunk_Absent (){
+TRUNK_SEPARATED_MNGT_CF =0
+}
+
+$Configure_SDO_Present (){
+SINGLE_DOOR_OPENING_CF =1
+SDO_ACTIVATION_INITIAL_CF =1
+}
+
+$Configure_SDO_Absent (){
+SINGLE_DOOR_OPENING_CF =0
+}
+
+$Configure_ChildLock_Present (){
+CHILD_LOCK_CF =1
+}
+
+$Configure_ChildLock_Absent (){
+CHILD_LOCK_CF =0
+}
+
+$Configure_ReverseChildLock_On (){
+CHILD_LOCK_SWITCH_REVERSE_CF =1
+}
+
+$Configure_ReverseChildLock_Off (){
+CHILD_LOCK_SWITCH_REVERSE_CF =0
+}
+
+$Configure_CrashDetection_Present (){
+CRASH_DETECTION_CF =1 
+}
+
+$Configure_CrashDetectionPostponed_Present (){
+CRASH_DETECTION_CF =2
+}
+
+$Configure_CrashDetection_Absent (){
+CRASH_DETECTION_CF =0
+}
+
+$Configure_AutoLockWith_LWS_Present (){
+AUTO_LOCK_WITH_SPEED_OR_PRANGE_CF =1
+AUTO_LOCK_ACTIVATION_INITIAL_CF =1
+}
+
+
+$Configure_AutoLockWith_ParkingLever_Present (){
+AUTO_LOCK_WITH_SPEED_OR_PRANGE_CF =1
+AUTO_LOCK_ACTIVATION_INITIAL_CF = 2
+}
+
+$Configure_AutoLock_Absent (){
+AUTO_LOCK_WITH_SPEED_OR_PRANGE_CF =0
+}
+
+$Configure_PowerBackDoor_Present (){
+POWER_BACK_DOOR_CF =1
+}
+
+$Configure_PowerBackDoor_Absent (){
+POWER_BACK_DOOR_CF =0
+}
+
+
+$Configure_BackDoorOpening_Present (){
+RKE_BACKDOOR_CF  =1
+}
+
+$Configure_BackDoorOpening_Absent (){
+RKE_BACKDOOR_CF  =0
+}
+
+$Configure_HandsFree_ButtonAccess (){
+//HANDFREE_ACCESS_CF =WITH_BUTTONS_ACCESS
+}
+
+$Configure_Handsfree_SensorAccess (){
+//HANDFREE_ACCESS_CF =WITH_SENSORS_ACCESS
+}
+
+$Configure_DoubleOverride_Present (){
+DOUBLE_OVERRIDE_CF =1
+}
+
+$Configure_DoubleOverride_Absent (){
+DOUBLE_OVERRIDE_CF =0
+}
+
+$Configure_CDLWith_SelectorSwitch (){
+SELECTOR_CDL_CF =1
+}
+
+$Configure_CDLWith_ImpulseSwitch (){
+SELECTOR_CDL_CF =0
+}
+
+$Configure_SilentMode_Present (){
+SILENT_MODE_CF =1
+}
+
+$Configure_SilentMode_Absent (){
+SILENT_MODE_CF =0
+}
+
+$Configure_BackUpLock_Present (){
+CDL_BACKUP_LOCK_CF =1
+}
+
+$Configure_BackUpLock_Absent (){
+CDL_BACKUP_LOCK_CF =0
+}
+
+$Configure_HornForLock_Present (){
+HORN_BEEP_AT_LOCK_CF =1
+}
+
+$Configure_HornForLock_Absent (){
+HORN_BEEP_AT_LOCK_CF =0
+}
+
+$Configure_iKeyBuzzer_Absent (){
+IKEY_BUZZER_LOCK_CF =0
+IKEY_BUZZER_UNLOCK_CF = 0
+}
+
+$Configure_iKeyBuzzer_OneSound (){
+IKEY_BUZZER_LOCK_CF =1
+IKEY_BUZZER_UNLOCK_CF = 1
+} 
+
+$Configure_iKeyBuzzer_TwoSound (){
+IKEY_BUZZER_LOCK_CF = 2
+IKEY_BUZZER_UNLOCK_CF = 2
+}
+
+
+$Configure_RKEBuzzer_Absent (){
+RKE_BUZZER_LOCK_CF =0
+RKE_BUZZER_UNLOCK_CF = 0
+}
+
+$Configure_RKEBuzzer_OneSound (){
+RKE_BUZZER_LOCK_CF =1
+RKE_BUZZER_UNLOCK_CF = 1
+} 
+
+$Configure_RKEBuzzer_TwoSound (){
+RKE_BUZZER_LOCK_CF = 2
+RKE_BUZZER_UNLOCK_CF = 2
+}
+
+$Configure_AT_Present (){
+
+}
+
+$Configure_AT_Absent (){
+
+}
+
+$Configure_RemoteEngineStart (){
+RES_STATUS_S = RES_REMOTE_ENGINE_START
+}
+
+$Configure_NormalEngineStart (){
+RES_STATUS_S = RES_NORMAL_ENGINE_START
+}
+
+$Configure_AutoRelock_Present (){
+AUTO_RELOCK_BY_TIMEOUT_CF = 1
+AUTO_RELOCK_ACTIVATION_INITIAL_CF = 1
+}
+
+$Configure_AutoRelock_Absent (){
+AUTO_RELOCK_BY_TIMEOUT_CF = 0
+}
+
+$Configure_CDL_RTL_IgnOn_AnyDoorOpen (){
+RTL_DOOR_OPEN_CDL_LOCK_IGN_ON_CF =2
+}
+
+$Configure_CDL_RTL_IgnOn_DriverDoorOpen (){
+RTL_DOOR_OPEN_CDL_LOCK_IGN_ON_CF =1
+}
+
+$Configure_CDL_NoRTL_IgnOn_AnyDoorOpen (){
+RTL_DOOR_OPEN_CDL_LOCK_IGN_ON_CF =0
+}
+
+$Configure_CDL_RTL_IgnOff_AnyDoorOpen (){
+RTL_DOOR_OPEN_CDL_LOCK_IGN_OFF_CF =1
+}
+
+$Configure_CDL_NoRTL_IgnOff_AnyDoorOpen (){
+RTL_DOOR_OPEN_CDL_LOCK_IGN_OFF_CF =0
+}
+
+$Configure_CDLRTL_LatchesActivation_Present (){
+RTL_WITH_CDL_FEEDBACK_TYPE_CF = 1
+}
+
+$Configure_CDLRTL_LatchesActivation_Absent (){
+RTL_WITH_CDL_FEEDBACK_TYPE_CF = 0
+}
+
+$Configure_ALWSStatusbyFlasher_Present (){
+ALWS_CDL_ACTIV_FB_FLASHERS_CF =1
+delay period ms
+}
+
+$Configure_ALWSStatusbyFlasher_Absent (){
+ALWS_CDL_ACTIV_FB_FLASHERS_CF = 0
+delay period ms
+}
+
+$Configure_LockKnob_Present (){        
+LOCK_KNOB_CF =1        
+delay period ms        
+}        
+
+$Configure_LockKnob_Absent (){        
+LOCK_KNOB_CF =0        
+delay period ms
+}
+//mark -newly implemented
+$Configure_AutoUnLock_Absent (){
+AUTO_UNLOCK_CF  = 0
+}
+
+$Configure_AutoUnLock_Present (){
+AUTO_UNLOCK_CF  = 1
+}
+
+$Configure_AutoUnLock_Activation_IGN_OFF (){
+AUTO_UNLOCK_ACTIVATION_INITIAL_CF  = 1
+}
+
+$Configure_AutoUnLock_Activation_P_rangeIn (){
+AUTO_UNLOCK_ACTIVATION_INITIAL_CF  = 2
+}
+
+$Configure_AutoUnLock_Deactivation (){
+AUTO_UNLOCK_ACTIVATION_INITIAL_CF   = 0
+}
+
+$Configure_Refuse_to_lock_passenger_door_open () {
+RTL_PASS_DOOR_OPEN_HANDFREE_LOCK_CF  = 1
+}
+
+$Configure_Lock_passenger_door_open () {
+RTL_PASS_DOOR_OPEN_HANDFREE_LOCK_CF  = 0
+}
+$Configure_RTL_EXTERNAL_LOCK_FEEDBACK_Sound_Enabled (){
+RTL_EXTERNAL_LOCK_FEEDBACK_TYPE_CF = 1
+}
+
+$Configure_RTL_EXTERNAL_LOCK_FEEDBACK_Sound_Disabled (){
+RTL_EXTERNAL_LOCK_FEEDBACK_TYPE_CF = 0 
+}
+
+$Configure_SeparatedTrunkManagement_Nissan (){
+TRUNK_UNLOCK_LOGIC_CF = 0
+delay period ms
+}
+
+$Configure_SeparatedTrunkManagement_Asian (){
+TRUNK_UNLOCK_LOGIC_CF =1
+delay period ms
+}
+
+$Activate_SilentMode (){
+SILENT_MODE_ACT_REQ = SILENT_MODE_ACTIVATION_REQ
+delay period ms
+}
+
+$Deactivate_Silentmode (){
+SILENT_MODE_ACT_REQ = SILENT_DEACTIVATION_REQ
+delay period ms
+}
+
+$Configure_Lock_Available_ATgearlever_not_in_ParkAlert (){
+delay period ms
+LOCK_LEVER_NOT_IN_PARK_ALERT_CF = 1
+delay period ms
+}
+$Configure_Lock_Not_Available_ATgearlever_not_in_ParkAlert (){
+delay period ms
+LOCK_LEVER_NOT_IN_PARK_ALERT_CF = 0
+delay period ms
+}
+
+$Set_Gearlever_Not_park_alert (){
+delay period ms
+R_KEYLOCK_ALERT_MSG = 1
+delay period ms
+}
+
+$Set_Gearlever_in_park_alert (){
+delay period ms
+ R_KEYLOCK_ALERT_MSG = 0
+delay period ms
+}
+
+//ST65_70_Part1
+$Configure_Flashers_FeedBk_Activtd() {
+delay period ms
+UNLOCK_FLASHERS_FEEDBACK_CF = 1
+delay period ms
+}
+
+$Configure_Flashers_FeedBk_Deactivtd() {
+delay period ms
+UNLOCK_FLASHERS_FEEDBACK_CF = 0
+delay period ms
+}
+
+
+$Config_SilentModeActivationState_ON() {
+delay period ms 
+SILENT_MODE_CF = 1
+SILENT_MODE_ACTIVATION_INITIAL_CF = 1
+delay period ms 
+check SILENT_MODE_ACTIVATION_STATE_S_OUT = 1 , "Error : SILENT_MODE_ACTIVATION_STATE_S_OUT should be 1"
+delay period ms 
+}
+
+
+$Config_SilentModeActivationState_OFF() {
+delay period ms 
+SILENT_MODE_CF = 0
+SILENT_MODE_ACTIVATION_INITIAL_CF = 0
+delay period ms 
+check SILENT_MODE_ACTIVATION_STATE_S_OUT = 0 , "Error : SILENT_MODE_ACTIVATION_STATE_S_OUT should be 0"
+delay period ms 
+}
