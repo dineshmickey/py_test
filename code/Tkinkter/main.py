@@ -1,6 +1,9 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import PhotoImage, filedialog, messagebox, ttk
 import pandas as pd
+from PIL import Image, ImageTk
+import base64
+import io
 import os
 import re
 
@@ -9,6 +12,8 @@ class ExcelSearchApp:
     def __init__(self, root):
         self.root = root
         self.root.title("TEST SCRIPT ASSIST")
+        img = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\Capgemini.png')
+        root.iconphoto(False, img)
         self.selected_item = None
 
         # Get screen width and height
@@ -27,28 +32,29 @@ class ExcelSearchApp:
         self.left_frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 
         # Upload Excel file button
-        self.upload_button = tk.Button(self.left_frame, text="Upload Excel File", command=self.upload_excel)
+        self.upload_button = tk.Button(self.left_frame, text="Upload Test Case \nExcel File", command=self.upload_excel)
         self.upload_button.grid(row=0, column=0, columnspan=3, pady=10, sticky="w")
 
         # Add the new button for uploading a folder of text files
-        self.upload_folder_button = tk.Button(self.left_frame, text="Upload Text Folder",command=self.upload_text_folder)
-        self.upload_folder_button.grid(row=4, column=0, columnspan=3, pady=10, sticky="w")
+        self.upload_folder_button = tk.Button(self.left_frame, text="Upload Reusable \nScript file",
+                                              command=self.upload_text_folder)
+        self.upload_folder_button.grid(row=0, column=0, columnspan=3, pady=10, sticky="e")
 
         # Search Label
         self.search_label = tk.Label(self.left_frame, text="Enter REQ ID OR USECASE ID:")
-        self.search_label.grid(row=1, column=0, sticky="w")
+        self.search_label.grid(row=2, column=0, sticky="w")
 
         # Search Entry
         self.search_entry = tk.Entry(self.left_frame, width=30)
-        self.search_entry.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="w")
+        self.search_entry.grid(row=3, column=0, columnspan=2, padx=5, pady=5, sticky="w")
 
         # Search Button
         self.search_button = tk.Button(self.left_frame, text="Search", command=self.search_excel)
-        self.search_button.grid(row=2, column=2, padx=5, pady=5, sticky="w")
+        self.search_button.grid(row=3, column=2, padx=2, pady=2, sticky="w")
 
         # Generate Button
         self.generate_button = tk.Button(self.left_frame, text="Generate", command=self.generate_scripts)
-        self.generate_button.grid(row=3, column=0, columnspan=3, pady=20)  # Center the button with increased padding
+        self.generate_button.grid(row=1, column=0, columnspan=3, pady=20)  # Center the button with increased padding
 
         # Bind Enter key to search entry
         self.search_entry.bind("<Return>", self.search_excel)
@@ -64,6 +70,9 @@ class ExcelSearchApp:
         self.tree1.column("Use Case ID", anchor=tk.W, stretch=tk.YES)
         self.tree1.pack(fill=tk.BOTH, expand=True)
 
+        self.save_button = tk.Button(root, text="Save", command=self.save_generated_script)
+        self.save_button.grid(row=1, column=0, pady=10)
+
         # Bind double-click event
         self.tree1.bind("<Double-1>", self.on_double_click)
 
@@ -77,7 +86,7 @@ class ExcelSearchApp:
 
         self.results_text3 = tk.Text(self.generated_scripts_frame, height=50, width=20)  # Increased height
         self.results_text3.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.BOTH, expand=True)
-        self.results_text3.config(state=tk.DISABLED)  # Make text widget read-only
+        self.results_text3.config(state=tk.DISABLED)  # Make text widget read_only
 
         # Frame for the two display boxes
         self.results_frame = tk.Frame(self.root)
@@ -89,49 +98,82 @@ class ExcelSearchApp:
 
         self.results_text2 = tk.Text(self.results_frame, height=50, width=50)  # Increased height
         self.results_text2.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.BOTH, expand=True)
-        self.results_text2.config(state=tk.DISABLED)  # Make text widget read-only
-
+        self.results_text2.config(state=tk.NORMAL)  # Make text widget editable
 
         # Initialize variables
         self.filepath = None
-        self.use_case_data = []  # List to store Usecase sheet data
+        self.use_case_data = []  # List to store Use case sheet data
         self.text_files_data = {}
 
     def upload_excel(self):
+        # Open a file dialog to select an Excel file
         self.filepath = filedialog.askopenfilename(filetypes=[("Excel files", "*.xlsx;*.xls")])
+
+        # Check if a file was selected
         if self.filepath:
+            # Show a message box with the path of the uploaded file
             messagebox.showinfo("File Uploaded", f"Uploaded: {self.filepath}")
+
+            # Call a method to load use case data from the selected file
             self.load_use_case_data()
 
     def upload_text_folder(self):
+        # Open a directory dialog to select a folder
         folder_path = filedialog.askdirectory()
+
+        # Check if a folder was selected
         if folder_path:
+            # Initialize an empty dictionary to store text file data
             self.text_files_data = {}
+
+            # Iterate over each file in the selected folder
             for filename in os.listdir(folder_path):
+                # Process only text files with a .txt extension
                 if filename.endswith(".txt"):
+                    # Construct the full file path
                     file_path = os.path.join(folder_path, filename)
+
+                    # Open and read the content of the text file
                     with open(file_path, "r") as file:
                         file_content = file.read()
+
+                        # Extract function data from the file content and update the dictionary
                         self.text_files_data.update(self.extract_functions_from_file(file_content))
+
+            # Show a message box indicating the folder with text files has been uploaded
             messagebox.showinfo("Folder Uploaded", f"Uploaded text files from: {folder_path}")
 
-    def extract_functions_from_file(self,text):
-        
+    def extract_functions_from_file(self, text):
+        # Define a regular expression pattern to match function_blocks
+        # Function blocks start with a $ followed by the function name,
+        # followed by () and {, then the function content, and ends with }
         pattern = r'\$(\w+)\s*\(\)\s*\{\s*([\s\S]*?)\s*\}'
+
+        # Use re.findall to find all matches of the pattern in the provided text
         matches = re.findall(pattern, text)
-        
+
+        # Initialize an empty dictionary to store extracted functions
         functions_dict = {}
+
+        # Iterate over each match found by the regular expression
         for match in matches:
+            # Extract the function name and content from the match
             function_name = match[0]
             content = match[1].strip().split('\n')
+
+            # Remove leading and trailing whitespace from each line and filter out empty lines
             temp = [line.strip() for line in content if line.strip()]
+
+            # Add the function to the dictionary with its name as the key and its content as the value
             functions_dict[f"${function_name} ()"] = self.remove_comments(temp)
-        
+
+        # Return the dictionary containing all extracted functions and their content
         return functions_dict
-    
-    def remove_comments(self,strings):
+
+    def remove_comments(self, strings):
+        # Filter out lines that start with '//' (comments) from the list of strings
         return [s for s in strings if not s.startswith('//')]
-    
+
     def load_use_case_data(self):
         try:
             # Load the specific sheet "Usecase" from the Excel file into a DataFrame
@@ -191,12 +233,12 @@ class ExcelSearchApp:
                 self.results_text2.config(state=tk.NORMAL)  # Set state to normal to edit content
                 self.results_text2.delete(1.0, tk.END)  # Clear previous results
                 self.results_text2.insert(tk.END, "Multiple results found. Double-click a row to view details.")
-                self.results_text2.config(state=tk.DISABLED)  # Set state back to disabled
+                self.results_text2.config(state=tk.NORMAL)  # Set state back to editable
             else:
                 self.results_text2.config(state=tk.NORMAL)  # Set state to normal to edit content
                 self.results_text2.delete(1.0, tk.END)  # Clear previous results
                 self.results_text2.insert(tk.END, "No matching rows found.")
-                self.results_text2.config(state=tk.DISABLED)  # Set state back to disabled
+                self.results_text2.config(state=tk.NORMAL)  # Set state back to editable
 
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
@@ -221,13 +263,13 @@ class ExcelSearchApp:
             # Insert placeholder data for second display box
             self.results_text2.insert(tk.END, "Placeholder text for additional information.\n")
 
-        self.results_text2.config(state=tk.DISABLED)  # Set state back to disabled
+        self.results_text2.config(state=tk.NORMAL)  # Set state back to disabled
 
         # Clear generated scripts box
         self.results_text3.config(state=tk.NORMAL)  # Set state to normal to edit content
         self.results_text3.delete(1.0, tk.END)  # Clear previous results
         self.results_text3.insert(tk.END, "Generated Scripts\n\n")  # Initial display message
-        self.results_text3.config(state=tk.DISABLED)  # Set state back to disabled
+        self.results_text3.config(state=tk.DISABLED)  # Set state back to read_only
 
     def on_double_click(self, event):
         # Get selected item
@@ -285,7 +327,7 @@ class ExcelSearchApp:
         self.results_text2.config(state=tk.NORMAL)  # Set state to normal to edit content
         self.results_text2.delete(1.0, tk.END)  # Clear previous results
         self.results_text2.insert(tk.END, combined_output)
-        self.results_text2.config(state=tk.DISABLED)  # Set state back to disabled
+        self.results_text2.config(state=tk.NORMAL)  # Set state back to editable
 
         # Display actual values in the third display box (results_text3)
         self.results_text3.config(state=tk.NORMAL)  # Set state to normal to edit content
@@ -294,113 +336,157 @@ class ExcelSearchApp:
         self.results_text3.insert(tk.END, f"//Scenarios: {scenario}\n")
         self.results_text3.insert(tk.END, f"//Preconditions: {preconditions}\n")
         self.results_text3.insert(tk.END, f"//Test Cases: {test_cases}\n")
-        self.results_text3.config(state=tk.DISABLED)  # Set state back to disabled
+        self.results_text3.config(state=tk.DISABLED)  # Set state back to read_only
 
-    def process_conditions(self,conditions):
+    def process_conditions(self, conditions):
+        # Flag to indicate if the output section has started
         output_start = False
+
+        # Split the conditions into individual lines
         lines = conditions.split("\n")
+
+        # Initialize a list to hold the modified lines
         modified_lines = []
 
+        # Iterate over each line in the conditions
         for line in lines:
+            # If the output section has not started
             if not output_start:
+                # Add the line to the modified lines list
                 modified_lines.append(line)
+                # Check if the line indicates the start of the output section
                 if line.strip() == "Output:":
                     output_start = True
             else:
+                # If the line contains an '=' but does not contain 'delay'
                 if "=" in line and "delay" not in line:
+                    # Split the line into key and value parts
                     key, value = line.split("=")
+                    # Strip any extra whitespace from key and value
                     key = key.strip()
                     value = value.strip()
+                    # Format the line as a CHECK statement with error message
                     modified_line = f"CHECK {key} = {value}, ERROR: {key} SHOULD BE {value}"
+                    # Add the modified line to the list
                     modified_lines.append(modified_line)
                 else:
+                    # If the line does not meet the above criteria, add it as is
                     modified_lines.append(line)
 
+        # Join the modified lines into a single string and return it
         return "\n".join(modified_lines)
 
-    def extract_blocks(self,input_txt):
+    def extract_blocks(self, input_txt):
+        # Initialize an empty dictionary to store function blocks
         blocks = {}
+
+        # Split the input text into lines and remove any leading/trailing whitespace
         lines = input_txt.strip().split('\n')
+
+        # Initialize variables to keep track of the current function and its block of code
         current_function = None
         current_block = []
 
+        # Iterate over each line in the input text
         for line in lines:
+            # Remove any leading/trailing whitespace from the line
             line = line.strip()
+
+            # Check if the line marks the start of a new function block
             if line.startswith('$') and line.endswith('() {'):
+                # Save the previous function block if there is one
                 if current_function:
                     blocks[current_function] = '\n'.join(current_block).strip()
+                # Extract the function name from the line and initialize a new block
                 current_function = line.split(' ')[0]
                 current_block = []
+            # Check if the line marks the end of a function block
             elif line == '}':
+                # Save the current function block and reset the function tracker
                 if current_function:
                     blocks[current_function] = '\n'.join(current_block).strip()
                     current_function = None
+            # If within a function block, add the line to the current block
             elif current_function:
                 current_block.append(line)
+
+        # Return the dictionary containing all extracted function blocks
         return blocks
 
     def generate_scripts(self):
+        # Check if an Excel file has been uploaded
         if not self.filepath:
             messagebox.showerror("Error", "Please upload an Excel file first.")
             return
 
+        # Check if use case data has been loaded from the Excel file
         if not self.use_case_data:
             messagebox.showerror("Error", "No 'Usecase' data loaded. Please upload an Excel file.")
             return
 
         try:
+            # Retrieve the selected item's details
             use_case_id = self.selected_item["Use Case ID"]
             scenario = self.selected_item["Scenarios"]
             preconditions = self.selected_item["Preconditions"]
             test_cases = self.selected_item["TestCases"]
             final_output = ""
-            
+
+            # Format the scenario and preconditions & test cases for output
             formatted_scenario = f"// {use_case_id}\n// {scenario}\n"
             formatted_preconditions = self.process_conditions(preconditions)
             formatted_test_cases = self.process_conditions(test_cases)
-    
-            
+
+            # Normalize input by joining lines with semicolons
             normalized_input = ';'.join(formatted_preconditions.split("\n"))
             normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
 
             print("inside 1st loop")
+            # Iterate over the function data from text files
             for function_name, content_lines in self.text_files_data.items():
+                # Convert content lines to a semicolon-separated string
                 content_str = ';'.join(content_lines)
-                print(function_name,"Function Name",content_lines,"Content Str")
-                if content_str=="":
-                    print("Skipping",function_name)
+                print(function_name, "Function Name", content_lines, "Content Str")
+
+                # Skip processing if the content string is empty
+                if content_str == "":
+                    print("Skipping", function_name)
                     continue
+
+                # Replace occurrences of content_str in normalized_input with the function_name
                 if content_str in normalized_input:
                     print(content_str)
                     normalized_input = re.sub(re.escape(content_str), function_name, normalized_input)
+
+                # Replace occurrences of content_str in normalized_test_case_input with the function_name
                 if content_str in normalized_test_case_input:
                     print(content_str)
-                    normalized_test_case_input = re.sub(re.escape(content_str), function_name, normalized_test_case_input)
-                    # print("Inside if")
-                    # normalized_input = '\n'.join(normalized_input.split(";"))
-            print("After for loop")     
-                        
+                    normalized_test_case_input = re.sub(re.escape(content_str), function_name,
+                                                        normalized_test_case_input)
+
+            print("After for loop")
+
+            # Reformat the normalized inputs by joining with new lines
             normalized_input = '\n'.join(normalized_input.split(";"))
             normalized_test_case_input = '\n'.join(normalized_test_case_input.split(";"))
 
+            # Concatenate formatted sections to create the final output
+            final_output = "".join([formatted_scenario, normalized_input, normalized_test_case_input])
 
-            
-            final_output = "".join([formatted_scenario, normalized_input ,normalized_test_case_input,])
-            
+    def save_generated_script(self):
+        # Get the content of results_text2
+        final_output = self.results_text2.get(1.0, tk.END).strip()
 
-            save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
-            if save_path:
+        # Open a file dialog to get the save path
+        save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+        if save_path:
+            try:
+                # Write the final output to the specified file
                 with open(save_path, "w") as file:
                     file.write(final_output)
-                messagebox.showinfo("Success", f"Scripts generated and saved to: {save_path}")
-
-            self.results_text2.config(state=tk.NORMAL)
-            self.results_text2.delete(1.0, tk.END)
-            self.results_text2.insert(tk.END, final_output)
-            self.results_text2.config(state=tk.DISABLED)
-
-        except Exception as e:
-            messagebox.showerror("Error", f"An error occurred while generating scripts: {str(e)}")
+                messagebox.showinfo("Success", f"Scripts saved to: {save_path}")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred while saving the file: {str(e)}")
 
 # Create the main window
 if __name__ == "__main__":
