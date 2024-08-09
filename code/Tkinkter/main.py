@@ -32,9 +32,9 @@ class ExcelSearchApp:
         self.left_frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 
         # Load and add image to the top-left corner
-        # self.image = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\Capgemini-Logo.png')
-        # self.image_label = tk.Label(self.left_frame, image=self.image)
-        # self.image_label.grid(row=0, column=0, padx=20, pady=0, sticky="nw")
+        #self.image = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\Capgemini-Logo.png')
+        #self.image_label = tk.Label(self.left_frame, image=self.image)
+        #self.image_label.grid(row=0, column=0, columnspan=7, rowspan=1, padx=1, pady=30, sticky="n")
 
         # Upload Excel file button
         self.upload_button = tk.Button(self.left_frame, text="Upload Test Case \nExcel File", command=self.upload_excel)
@@ -98,13 +98,17 @@ class ExcelSearchApp:
         self.results_label2 = tk.Label(self.results_frame, text="GENERATED SCRIPTS")
         self.results_label2.pack(side=tk.TOP, padx=10, pady=5, anchor=tk.NW)
 
-        self.results_text2 = tk.Text(self.results_frame, height=50, width=50)  # Increased height
+        self.results_text2 = tk.Text(self.results_frame, height=50, width=50, undo=True)  # Increased height
         self.results_text2.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.BOTH, expand=True)
         self.results_text2.config(state=tk.NORMAL)  # Make text widget editable
 
         # Frame for the Save button
         self.button_frame = tk.Frame(self.results_frame)
         self.button_frame.pack(side=tk.RIGHT, padx=15, pady=110, fill=tk.Y)
+
+        # Bind Undo/Redo commands
+        self.results_text2.bind("<Control-z>", self.undo_edit)
+        self.results_text2.bind("<Control-y>", self.redo_edit)
 
         # Save Button
         self.save_button = tk.Button(self.button_frame, text="Save", command=self.save_generated_script)
@@ -536,6 +540,17 @@ class ExcelSearchApp:
         else:
             messagebox.showerror("Error", "Use Case ID not found in the data.")
             return
+
+        # Print updated self.use_case_data only once
+        if not hasattr(self, 'updated'):
+            print("Updated self.use_case_data:", self.use_case_data)
+            self.updated = True
+
+    def undo_edit(self, event=None):
+        self.results_text2.edit_undo()
+
+    def redo_edit(self, event=None):
+        self.results_text2.edit_redo()
 
 # Create the main window
 if __name__ == "__main__":
