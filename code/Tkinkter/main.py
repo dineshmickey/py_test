@@ -31,6 +31,11 @@ class ExcelSearchApp:
         self.left_frame = tk.Frame(self.frame, pady=50)  # Increase the padding to move contents down
         self.left_frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 
+        # Load and add image to the top-left corner
+        # self.image = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\Capgemini-Logo.png')
+        # self.image_label = tk.Label(self.left_frame, image=self.image)
+        # self.image_label.grid(row=0, column=0, padx=20, pady=0, sticky="nw")
+
         # Upload Excel file button
         self.upload_button = tk.Button(self.left_frame, text="Upload Test Case \nExcel File", command=self.upload_excel)
         self.upload_button.grid(row=0, column=0, columnspan=3, pady=10, sticky="w")
@@ -61,7 +66,7 @@ class ExcelSearchApp:
 
         # Treeview widget for first display box (right side)
         self.tree_frame1 = tk.Frame(self.frame)
-        self.tree_frame1.pack(side=tk.RIGHT, padx=10, pady=(50, 10), fill=tk.BOTH, expand=True)
+        self.tree_frame1.pack(side=tk.RIGHT, padx=10, pady=(15, 10), fill=tk.BOTH, expand=True)
 
         self.tree1 = ttk.Treeview(self.tree_frame1, columns=("Requirement ID", "Use Case ID"), show="headings")
         self.tree1.heading("Requirement ID", text="Requirement ID")
@@ -69,9 +74,6 @@ class ExcelSearchApp:
         self.tree1.column("Requirement ID", anchor=tk.W, stretch=tk.YES)
         self.tree1.column("Use Case ID", anchor=tk.W, stretch=tk.YES)
         self.tree1.pack(fill=tk.BOTH, expand=True)
-
-        self.save_button = tk.Button(root, text="Save", command=self.save_generated_script)
-        self.save_button.grid(row=1, column=0, pady=10)
 
         # Bind double-click event
         self.tree1.bind("<Double-1>", self.on_double_click)
@@ -99,6 +101,14 @@ class ExcelSearchApp:
         self.results_text2 = tk.Text(self.results_frame, height=50, width=50)  # Increased height
         self.results_text2.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.BOTH, expand=True)
         self.results_text2.config(state=tk.NORMAL)  # Make text widget editable
+
+        # Frame for the Save button
+        self.button_frame = tk.Frame(self.results_frame)
+        self.button_frame.pack(side=tk.RIGHT, padx=15, pady=110, fill=tk.Y)
+
+        # Save Button
+        self.save_button = tk.Button(self.button_frame, text="Save", command=self.save_generated_script)
+        self.save_button.pack()
 
         # Initialize variables
         self.filepath = None
@@ -338,6 +348,11 @@ class ExcelSearchApp:
         self.results_text3.insert(tk.END, f"//Test Cases: {test_cases}\n")
         self.results_text3.config(state=tk.DISABLED)  # Set state back to read_only
 
+        # Disable editing for Requirement ID and Use Case ID in results_text2
+        self.results_text2.tag_configure("readonly", foreground="black")
+        self.results_text2.insert(tk.END, f"\n\nRequirement ID: {use_case_data['Requirement ID']}\n", "readonly")
+        self.results_text2.insert(tk.END, f"Use Case ID: {use_case_id}\n", "readonly")
+
     def process_conditions(self, conditions):
         # Flag to indicate if the output section has started
         output_start = False
@@ -473,20 +488,54 @@ class ExcelSearchApp:
             # Concatenate formatted sections to create the final output
             final_output = "".join([formatted_scenario, normalized_input, normalized_test_case_input])
 
-    def save_generated_script(self):
-        # Get the content of results_text2
-        final_output = self.results_text2.get(1.0, tk.END).strip()
-
-        # Open a file dialog to get the save path
-        save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
-        if save_path:
-            try:
+            # Prompt the user to save the generated scripts to a file
+            save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+            if save_path:
                 # Write the final output to the specified file
                 with open(save_path, "w") as file:
                     file.write(final_output)
-                messagebox.showinfo("Success", f"Scripts saved to: {save_path}")
-            except Exception as e:
-                messagebox.showerror("Error", f"An error occurred while saving the file: {str(e)}")
+                messagebox.showinfo("Success", f"Scripts generated and saved to: {save_path}")
+
+            # Update the results text widget with the generated scripts
+            self.results_text2.config(state=tk.NORMAL)
+            self.results_text2.delete(1.0, tk.END)
+            self.results_text2.insert(tk.END, final_output)
+            self.results_text2.config(state=tk.DISABLED)
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred while generating scripts: {str(e)}")
+
+    def save_generated_script(self):
+        if not self.use_case_data:
+            messagebox.showerror("Error", "No use case data to save.")
+            return
+
+        # Get the updated content from the text widget
+        updated_content = self.results_text2.get(1.0, tk.END).strip()
+
+        # Extract the use case ID from the updated content
+        use_case_id_start = updated_content.find("Use Case ID: ")
+        if use_case_id_start == -1:
+            messagebox.showerror("Error", "Could not find Use Case ID in the text.")
+            return
+
+        use_case_id_start += len("Use Case ID: ")
+        use_case_id_end = updated_content.find("\n", use_case_id_start)
+        if use_case_id_end == -1:
+            use_case_id_end = len(updated_content)
+        use_case_id = updated_content[use_case_id_start:use_case_id_end].strip()
+
+        # Find the corresponding item in self.use_case_data
+        for item in self.use_case_data:
+            if item["Use Case ID"] == use_case_id:
+                # Update the item with the new values
+                item["Scenarios"] = updated_content  # Extract and parse specific fields as needed
+                item["Preconditions"] = updated_content
+                item["TestCases"] = updated_content
+                break
+        else:
+            messagebox.showerror("Error", "Use Case ID not found in the data.")
+            return
 
 # Create the main window
 if __name__ == "__main__":
