@@ -32,17 +32,16 @@ class ExcelSearchApp:
         self.left_frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 
         # Load and add image to the top-left corner
-        #self.image = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\Capgemini-Logo.png')
-        #self.image_label = tk.Label(self.left_frame, image=self.image)
-        #self.image_label.grid(row=0, column=0, columnspan=7, rowspan=1, padx=1, pady=30, sticky="n")
+        self.image = PhotoImage(file=r'C:\Users\PREETHAE\Downloads\w.png')
+        self.image_label = tk.Label(self.left_frame, image=self.image)
+        self.image_label.grid(row=0, column=0, columnspan=7, rowspan=1, padx=5, pady=5, sticky="n")
 
         # Upload Excel file button
         self.upload_button = tk.Button(self.left_frame, text="Upload Test Case \nExcel File", command=self.upload_excel)
         self.upload_button.grid(row=0, column=0, columnspan=3, pady=10, sticky="w")
 
         # Add the new button for uploading a folder of text files
-        self.upload_folder_button = tk.Button(self.left_frame, text="Upload Reusable \nScript file",
-                                              command=self.upload_text_folder)
+        self.upload_folder_button = tk.Button(self.left_frame, text="Upload Reusable \nScript file", command=self.upload_text_folder)
         self.upload_folder_button.grid(row=0, column=0, columnspan=3, pady=10, sticky="e")
 
         # Search Label
@@ -57,9 +56,13 @@ class ExcelSearchApp:
         self.search_button = tk.Button(self.left_frame, text="Search", command=self.search_excel)
         self.search_button.grid(row=3, column=2, padx=2, pady=2, sticky="w")
 
-        # Generate Button
+        # Generate  Button
         self.generate_button = tk.Button(self.left_frame, text="Generate", command=self.generate_scripts)
-        self.generate_button.grid(row=1, column=0, columnspan=3, pady=20)  # Center the button with increased padding
+        self.generate_button.grid(row=1, column=0, padx=20, pady=20, sticky="w")  # Align to the left side
+
+        # Generate All Button
+        self.generate_button = tk.Button(self.left_frame, text="Generate All", command=self.generate_all_scripts)
+        self.generate_button.grid(row=1, column=0, columnspan=3, pady=10, sticky="e")  # Align to the right side
 
         # Bind Enter key to search entry
         self.search_entry.bind("<Return>", self.search_excel)
@@ -111,13 +114,25 @@ class ExcelSearchApp:
         self.results_text2.bind("<Control-y>", self.redo_edit)
 
         # Save Button
-        self.save_button = tk.Button(self.button_frame, text="Save", command=self.save_generated_script)
+        self.save_button = tk.Button(self.button_frame, text="Save\n Changes", command=self.save_generated_script)
         self.save_button.pack()
+
+        # Previous Button
+        self.prev_button = tk.Button(self.button_frame, text="Previous", command=self.show_previous)
+        self.prev_button.pack(side=tk.LEFT, padx=5, pady=5)
+
+        # Next Button
+        self.next_button = tk.Button(self.button_frame, text="  Next  ", command=self.show_next)
+        self.next_button.pack(side=tk.LEFT, padx=5, pady=5)
 
         # Initialize variables
         self.filepath = None
         self.use_case_data = []  # List to store Use case sheet data
         self.text_files_data = {}
+        self.updated = False
+
+        self.left_frame = tk.Frame(root)
+        self.left_frame.pack(side=tk.LEFT, padx=10, pady=10)
 
     def upload_excel(self):
         # Open a file dialog to select an Excel file
@@ -295,7 +310,22 @@ class ExcelSearchApp:
         self.selected_item = use_case_data
 
         if use_case_data:
+            self.current_index = self.use_case_data.index(use_case_data)
             self.show_details(use_case_data)
+
+    def show_next(self):
+        if self.use_case_data:
+            # Move to the next item
+            self.current_index = (self.current_index + 1) % len(self.use_case_data)
+            next_use_case_data = self.use_case_data[self.current_index]
+            self.show_details(next_use_case_data)
+
+    def show_previous(self):
+        if self.use_case_data:
+            # Move to the previous item
+            self.current_index = (self.current_index - 1) % len(self.use_case_data)
+            previous_use_case_data = self.use_case_data[self.current_index]
+            self.show_details(previous_use_case_data)
 
     def show_details(self, use_case_data):
         # Extract the details
@@ -499,6 +529,77 @@ class ExcelSearchApp:
                 with open(save_path, "w") as file:
                     file.write(final_output)
                 messagebox.showinfo("Success", f"Scripts generated and saved to: {save_path}")
+
+            # Update the results text widget with the generated scripts
+            self.results_text2.config(state=tk.NORMAL)
+            self.results_text2.delete(1.0, tk.END)
+            self.results_text2.insert(tk.END, final_output)
+            self.results_text2.config(state=tk.DISABLED)
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred while generating scripts: {str(e)}")
+
+    def generate_all_scripts(self):
+        # Check if an Excel file has been uploaded
+        if not self.filepath:
+            messagebox.showerror("Error", "Please upload an Excel file first.")
+            return
+
+        # Check if use case data has been loaded from the Excel file
+        if not self.use_case_data:
+            messagebox.showerror("Error", "No 'Usecase' data loaded. Please upload an Excel file.")
+            return
+
+        try:
+            final_output = ""
+
+            for item in self.use_case_data:
+                use_case_id = item["Use Case ID"]
+                scenario = item["Scenarios"]
+                preconditions = item["Preconditions"]
+                test_cases = item["TestCases"]
+
+                # Format the scenario and preconditions & test cases for output
+                formatted_scenario = f"// {use_case_id}\n// {scenario}\n"
+                formatted_preconditions = self.process_conditions(preconditions)
+                formatted_test_cases = self.process_conditions(test_cases)
+
+                # Normalize input by joining lines with semicolons
+                normalized_input = ';'.join(formatted_preconditions.split("\n"))
+                normalized_test_case_input = ';'.join(formatted_test_cases.split("\n"))
+
+                # Iterate over the function data from text files
+                for function_name, content_lines in self.text_files_data.items():
+                    # Convert content lines to a semicolon-separated string
+                    content_str = ';'.join(content_lines)
+
+                    # Skip processing if the content string is empty
+                    if content_str == "":
+                        continue
+
+                    # Replace occurrences of content_str in normalized_input with the function_name
+                    if content_str in normalized_input:
+                        normalized_input = re.sub(re.escape(content_str), function_name, normalized_input)
+
+                    # Replace occurrences of content_str in normalized_test_case_input with the function_name
+                    if content_str in normalized_test_case_input:
+                        normalized_test_case_input = re.sub(re.escape(content_str), function_name,
+                                                            normalized_test_case_input)
+
+                # Reformat the normalized inputs by joining with new lines
+                normalized_input = '\n'.join(normalized_input.split(";"))
+                normalized_test_case_input = '\n'.join(normalized_test_case_input.split(";"))
+
+                # Concatenate formatted sections to create the final output for this item
+                final_output += "".join([formatted_scenario, normalized_input, normalized_test_case_input, "\n\n"])
+
+            # Prompt the user to save the generated scripts to a file
+            save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+            if save_path:
+                # Write the final output to the specified file
+                with open(save_path, "w") as file:
+                    file.write(final_output)
+                messagebox.showinfo("Success", f"All scripts generated and saved to: {save_path}")
 
             # Update the results text widget with the generated scripts
             self.results_text2.config(state=tk.NORMAL)
